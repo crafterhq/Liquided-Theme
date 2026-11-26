@@ -178,7 +178,7 @@
     if (cartStr) {
       try {
         cart = JSON.parse(cartStr);
-        // Filtrele: ID'si boş olan hatalı kayıtları temizle
+        // Filter: drop corrupt records with an empty ID
         const originalLength = cart.length;
         cart = cart.filter(item => item && item.id && String(item.id).trim() !== '');
         if (cart.length !== originalLength) {
@@ -196,8 +196,8 @@
     }
 
     try {
-      // Artık API'den ürünleri tek tek çekmiyoruz (N+1 problemi çözüldü)
-      // Ürün objeleri doğrudan sepete eklenirken localStorage'a kaydediliyor.
+      // Products are no longer fetched one by one from the API (N+1 problem solved)
+      // Product objects are saved to localStorage when they are added to the cart.
       cartProducts = cart;
 
       document.getElementById('cart-loading').classList.add('hidden');

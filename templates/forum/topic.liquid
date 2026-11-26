@@ -249,7 +249,7 @@
     text-decoration: underline line-through;
   }
   
-  /* Prose stilleri - zengin içerik okunaklılığını artırır */
+  /* Prose styles - improve readability of rich content */
   .lexical-content p {
     margin-bottom: 1rem;
     line-height: 1.7;
@@ -279,7 +279,7 @@
     namespace: 'ForumReply',
     theme: myTheme,
     onError: (error) => {
-      console.error('Lexical Hatası:', error);
+      console.error('Lexical error:', error);
     },
   };
 
@@ -289,7 +289,7 @@
   if (editorElement) {
     editor.setRootElement(editorElement);
 
-    // Kayıt
+    // Submit
     registerRichText(editor);
 
     // Toolbars

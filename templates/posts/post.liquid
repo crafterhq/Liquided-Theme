@@ -146,7 +146,7 @@
             setTimeout(() => window.location.reload(), 1500);
           }
         {% else %}
-          // Giriş yapmamışsa yönlendir
+          // Redirect if not logged in
           window.location.href = '/auth';
         {% endif %}
       });

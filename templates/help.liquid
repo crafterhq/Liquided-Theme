@@ -10,19 +10,19 @@
     <span class="text-gray-900">Yardım Merkezi</span>
   </div>
 
-  <!-- 2 Kolonlu Ana Layout (Sol: Yardım Her Şey, Sağ: Destek) -->
+  <!-- Two-column main layout (left: help content, right: support) -->
   <div class="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-8">
     
-    <!-- Sol Kolon: Yardım İçerikleri -->
+    <!-- Left column: help content -->
     <div>
-      <!-- Başlık ve Arama -->
+      <!-- Title and search -->
       <div class="mb-12">
         <h1 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight mb-3">Yardım Merkezi</h1>
         <p class="text-gray-500 font-medium max-w-lg leading-relaxed mb-6">
           Sorunun mu var? SSS'ye göz at veya kategorilerden birini seç. Aradığını bulamazsan sağ taraftan destek talebi oluşturabilirsin.
         </p>
 
-        <!-- Arama -->
+        <!-- Search -->
         <div class="relative w-full max-w-md group">
           <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
             <svg class="w-5 h-5 text-gray-400 group-focus-within:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <!-- Kategoriler -->
+      <!-- Categories -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for cat in helpCenter.categories %}
           <a
@@ -71,7 +71,7 @@
 
       <div class="w-full h-px bg-gray-100 my-12"></div>
 
-      <!-- SSS -->
+      <!-- FAQ -->
       <div>
         <div class="flex items-center gap-3 mb-8">
           <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center border border-blue-100 shadow-inner">
@@ -105,7 +105,7 @@
       </div>
     </div>
 
-    <!-- Sağ Kolon: Destek Kutusu -->
+    <!-- Right column: support box -->
     <div class="space-y-6">
       <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 sticky top-24 text-center flex flex-col items-center">
         <div class="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6">
@@ -157,7 +157,7 @@
     }
   }
 
-  // Arama İşlevi
+  // Search
   document.getElementById('help-search').addEventListener('input', function (e) {
     const term = e.target.value.toLowerCase();
     const faqs = document.querySelectorAll('.faq-item');

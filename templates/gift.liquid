@@ -11,7 +11,7 @@
   </div>
 
   {% if customer %}
-    <!-- Başlık ve Bakiye -->
+    <!-- Title and balance -->
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
       <div>
         <h1 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight mb-3">Hediye Gönder</h1>
@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <!-- Bildirim Konteyneri -->
+    <!-- Notification container -->
     <div
       id="notification-container"
       class="hidden mb-6 p-5 rounded-2xl font-bold flex items-center gap-3 shadow-sm border"
@@ -41,9 +41,9 @@
 
     <form id="gift-form" class="space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Sol Kolon: Tür ve Miktar Seçimi -->
+        <!-- Left column: type and amount selection -->
         <div class="space-y-6">
-          <!-- Hediye Türü -->
+          <!-- Gift type -->
           <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
             <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">Hediye Türü Seçin</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -99,7 +99,7 @@
             </div>
           </div>
 
-          <!-- Hediye Detayı (Kredi) -->
+          <!-- Gift details (credit) -->
           <div
             id="panel-balance"
             class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm transition-opacity duration-300"
@@ -119,7 +119,7 @@
               >
             </div>
 
-            <!-- Yetersiz Bakiye Uyarısı -->
+            <!-- Insufficient balance warning -->
             <div
               id="insufficient-balance-warning"
               class="hidden mt-4 p-4 rounded-xl bg-red-50 border border-red-100 flex items-center justify-between gap-4"
@@ -142,7 +142,7 @@
             </div>
           </div>
 
-          <!-- Hediye Detayı (Eşya) -->
+          <!-- Gift details (item) -->
           <div
             id="panel-item"
             class="hidden bg-white rounded-3xl p-6 border border-gray-100 shadow-sm transition-opacity duration-300"
@@ -190,7 +190,7 @@
           </div>
         </div>
 
-        <!-- Sağ Kolon: Alıcı Seçimi ve Gönder -->
+        <!-- Right column: recipient selection and send -->
         <div class="space-y-6">
           <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
             <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">Kime Gönderilecek?</h3>
@@ -233,7 +233,7 @@
               </button>
             </div>
 
-            <!-- Seçilen Kullanıcı (Başlangıçta Gizli) -->
+            <!-- Selected user (hidden initially) -->
             <div
               id="selected-user-card"
               class="hidden mt-6 p-6 rounded-2xl border-2 border-primary/20 bg-primary/5 flex items-center gap-5 transition-opacity duration-300"
@@ -257,7 +257,7 @@
             </div>
           </div>
 
-          <!-- Gönder Butonu Alt Kısım -->
+          <!-- Send button footer -->
           <div>
             <button
               type="submit"
@@ -290,17 +290,17 @@
       </div>
     </form>
 
-    <!-- JS Mantığı -->
+    <!-- JS logic -->
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        // Durum Değişkenleri
-        let currentGiftType = 'balance'; // 'balance' veya 'item'
+        // State variables
+        let currentGiftType = 'balance'; // 'balance' or 'item'
         let currentSelectedUser = null;
         let currentSelectedChestItemId = null;
         const currentUserBalance = {{ customer.balance | default: 0 }};
         const currentUserId = '{{ customer.id }}';
 
-        // Element Referansları
+        // Element references
         const typeBtns = document.querySelectorAll('.gift-type-btn');
         const panelBalance = document.getElementById('panel-balance');
         const panelItem = document.getElementById('panel-item');
@@ -324,7 +324,7 @@
         const notifMessage = document.getElementById('notification-message');
         const notifIcon = document.getElementById('notification-icon');
 
-        // Bildirim Gösterme Fonksiyonu
+        // Show a notification
         function showNotification(msg, isError = true) {
           notifContainer.classList.remove('hidden', 'bg-red-50', 'text-red-600', 'border-red-100', 'bg-green-50', 'text-green-600', 'border-green-100');
           notifMessage.textContent = msg;
@@ -338,7 +338,7 @@
           }
         }
 
-        // Gönder Butonu Durumunu Güncelleme
+        // Update the send button state
         function updateSubmitButtonState() {
           let isValid = false;
           const amt = parseFloat(amountInput.value) || 0;
@@ -368,25 +368,25 @@
           submitBtn.disabled = !isValid;
         }
 
-        // Hediye Türü Değiştirme
+        // Switch the gift type
         typeBtns.forEach(btn => {
           btn.addEventListener('click', (e) => {
             const type = btn.getAttribute('data-type');
             currentGiftType = type;
             
-            // Tüm butonları pasif yap
+            // Deactivate all buttons
             typeBtns.forEach(b => {
               b.classList.remove('border-primary', 'ring-4', 'ring-primary/10', 'bg-primary/5');
               b.classList.add('border-gray-200', 'hover:border-primary/40', 'bg-gray-50/50');
               b.querySelector('.type-check').classList.add('hidden');
             });
             
-            // Tıklananı aktif yap
+            // Activate the clicked one
             btn.classList.add('border-primary', 'ring-4', 'ring-primary/10', 'bg-primary/5');
             btn.classList.remove('border-gray-200', 'hover:border-primary/40', 'bg-gray-50/50');
             btn.querySelector('.type-check').classList.remove('hidden');
 
-            // Panelleri gizle/göster
+            // Show/hide the panels
             if (type === 'balance') {
               panelBalance.classList.remove('hidden');
               panelItem.classList.add('hidden');
@@ -396,23 +396,23 @@
             }
 
             updateSubmitButtonState();
-            notifContainer.classList.add('hidden'); // hataları temizle
+            notifContainer.classList.add('hidden'); // clear errors
           });
         });
 
-        // Eşya Seçimi
+        // Item selection
         chestItemBtns.forEach(btn => {
           btn.addEventListener('click', () => {
             currentSelectedChestItemId = btn.getAttribute('data-item-id');
             
-            // Diğerlerini pasif yap
+            // Deactivate the others
             chestItemBtns.forEach(b => {
               b.classList.remove('ring-2', 'ring-primary', 'border-primary', 'bg-primary/5');
               b.classList.add('border-gray-200', 'hover:border-primary/50', 'bg-white');
               b.querySelector('.item-check').classList.add('hidden');
             });
             
-            // Seçileni aktif yap
+            // Activate the selected one
             btn.classList.add('ring-2', 'ring-primary', 'border-primary', 'bg-primary/5');
             btn.classList.remove('border-gray-200', 'hover:border-primary/50', 'bg-white');
             btn.querySelector('.item-check').classList.remove('hidden');
@@ -421,10 +421,10 @@
           });
         });
 
-        // Tutar Girişi
+        // Amount input
         amountInput.addEventListener('input', updateSubmitButtonState);
 
-        // Kullanıcı Arama
+        // User search
         async function performSearch() {
           const query = searchInput.value.trim();
           if (!query) {
@@ -441,7 +441,7 @@
           try {
             const data = await window.crafter.users.getByUsername(query);
             
-            // Eğer dönen veri doğrudan kullanıcı objesi ise (data.id var ise) veya data.data içinde ise
+            // If the returned data is the user object itself (data.id exists) or is inside data.data
             const foundUser = data?.data ? data.data : (data?.id ? data : null);
             
             if (!foundUser) {
@@ -457,7 +457,7 @@
             
             currentSelectedUser = foundUser;
             
-            // Arayüzü güncelle
+            // Update the UI
             document.getElementById('selected-user-avatar').src = `https://mc-heads.net/avatar/${foundUser.username}/64`;
             document.getElementById('selected-user-username').textContent = foundUser.username;
             document.getElementById('selected-user-email').textContent = foundUser.email || 'E-posta belirtilmemiş';
@@ -486,20 +486,20 @@
           }
         });
 
-        // Seçilen Kullanıcıyı İptal Etme
+        // Cancel the selected user
         clearUserBtn.addEventListener('click', () => {
           currentSelectedUser = null;
           selectedUserCard.classList.add('hidden');
           updateSubmitButtonState();
         });
 
-        // Hediyeyi Gönder (Form Submit)
+        // Send the gift (form submit)
         document.getElementById('gift-form').addEventListener('submit', async (e) => {
           e.preventDefault();
           
           if (!currentSelectedUser) return;
 
-          // Loading durumu
+          // Loading state
           submitBtn.disabled = true;
           submitIdle.classList.add('hidden');
           submitLoading.classList.remove('hidden');
@@ -553,7 +553,7 @@
       });
     </script>
   {% else %}
-    <!-- Giriş Yapmamış Kullanıcı -->
+    <!-- Logged-out user -->
     <div class="w-full max-w-2xl mx-auto rounded-[24px] bg-white p-8 md:p-12 text-center border border-gray-100 shadow-sm flex flex-col items-center mt-12">
       <div class="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center text-primary border border-gray-100 mb-6">
         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
