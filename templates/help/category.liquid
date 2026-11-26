@@ -22,7 +22,7 @@
 
   <div class="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8">
     
-    <!-- Sol: Makale Listesi (Sidebar) -->
+    <!-- Left: article list (sidebar) -->
     <div class="space-y-6">
       <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 sticky top-24">
         <div class="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100">
@@ -68,7 +68,7 @@
       </div>
     </div>
 
-    <!-- Sağ: Makale İçeriği -->
+    <!-- Right: article content -->
     <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden min-h-[500px]">
       <div id="articles-container">
         {% for item in categoryDetail.items %}
@@ -112,18 +112,18 @@
 
 <script>
   function showArticle(articleId) {
-    // Tüm makaleleri gizle
+    // Hide all articles
     document.querySelectorAll('.article-content').forEach(el => {
       el.classList.add('hidden');
     });
     
-    // Sadece tıklananı göster
+    // Show only the clicked one
     const selectedArticle = document.getElementById('article-' + articleId);
     if (selectedArticle) {
       selectedArticle.classList.remove('hidden');
     }
 
-    // Buton stillerini güncelle
+    // Update the button styles
     document.querySelectorAll('.article-btn').forEach(btn => {
       const isSelected = btn.getAttribute('data-id') === articleId;
       const iconWrap = btn.querySelector('div');

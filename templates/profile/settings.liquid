@@ -1,11 +1,11 @@
 {% if customer %}
   <div class="container max-w-[1350px] mx-auto px-4 sm:px-6 py-8 sm:py-12 min-h-[60vh]">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-      <!-- Sol Kolon: Profil Bilgileri, İstatistikler ve Navigasyon -->
+      <!-- Left column: profile info, statistics and navigation -->
       <div class="lg:col-span-4 space-y-6">
-        <!-- Profil Kartı -->
+        <!-- Profile card -->
         <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm relative overflow-hidden flex flex-col items-center text-center">
-          <!-- Dekoratif Arkaplan -->
+          <!-- Decorative background -->
           <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] -mr-8 -mt-8"></div>
 
           <div class="relative w-32 h-32 mb-6">
@@ -41,7 +41,7 @@
           </div>
         </div>
 
-        <!-- İstatistikler -->
+        <!-- Statistics -->
         <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
           <h3 class="text-lg font-bold text-gray-900 mb-4">İstatistikler</h3>
           <div class="space-y-3">
@@ -75,7 +75,7 @@
           </div>
         </div>
 
-        <!-- Navigasyon (Tab Butonları) -->
+        <!-- Navigation (tab buttons) -->
         <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
           <h3 class="text-lg font-bold text-gray-900 mb-4">Menü</h3>
           <div class="space-y-2 flex flex-col">
@@ -142,7 +142,7 @@
         </div>
       </div>
 
-      <!-- Sağ Kolon: Ayarlar İçeriği -->
+      <!-- Right column: settings content -->
       <div class="lg:col-span-8 space-y-6">
         <!-- Settings Sub-Tabs Header -->
         <div class="bg-white rounded-2xl p-2 border border-gray-100 shadow-sm flex flex-wrap gap-2">
@@ -182,7 +182,7 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- TAB 1: GENEL PROFİL & ŞİFRE -->
+        <!-- TAB 1: GENERAL PROFILE & PASSWORD -->
         <!-- ========================================== -->
         <div id="tab-general" class="settings-content bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm animate-[fade-in_200ms_ease-out]">
           <h2 class="text-2xl font-black text-gray-900 mb-6 flex items-center gap-3">
@@ -192,13 +192,13 @@
             Profil Ayarları
           </h2>
 
-          <!-- Başarı Mesajı -->
+          <!-- Success message -->
           <div id="settings-success" class="hidden mb-6 p-4 rounded-xl bg-green-50 border border-green-200 text-green-700 font-bold flex items-center gap-3">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             Değişiklikleriniz başarıyla kaydedildi!
           </div>
 
-          <!-- Hata Mesajı -->
+          <!-- Error message -->
           <div id="settings-error" class="hidden mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 font-bold flex items-center gap-3">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             <span id="settings-error-text">Bir hata oluştu.</span>
@@ -266,7 +266,7 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- TAB 2: DISCORD ENTEGRASYONU -->
+        <!-- TAB 2: DISCORD INTEGRATION -->
         <!-- ========================================== -->
         <div id="tab-discord" class="settings-content hidden bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm animate-[fade-in_200ms_ease-out]">
           <div class="flex items-center justify-between mb-6">
@@ -335,7 +335,7 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- TAB 3: 2FA GÜVENLİK (TWO-FACTOR AUTH) -->
+        <!-- TAB 3: 2FA SECURITY (TWO-FACTOR AUTH) -->
         <!-- ========================================== -->
         <div id="tab-2fa" class="settings-content hidden bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm animate-[fade-in_200ms_ease-out]">
           <div class="flex items-center justify-between mb-6">
@@ -755,7 +755,7 @@
     }
 
     // ==========================================
-    // DISCORD ENTEGRASYONU FONKSİYONLARI
+    // DISCORD INTEGRATION FUNCTIONS
     // ==========================================
     async function loadDiscordStatus() {
       const badge = document.getElementById('discordStatusBadge');
@@ -848,7 +848,7 @@
     }
 
     // ==========================================
-    // 2FA GÜVENLİK FONKSİYONLARI
+    // 2FA SECURITY FUNCTIONS
     // ==========================================
     async function loadTwoFaStatus() {
       const overallBadge = document.getElementById('twofaOverallBadge');
@@ -1191,7 +1191,7 @@
     });
 
     // ==========================================
-    // GENEL PROFİL FORMU SUBMIT & INITIAL LOAD
+    // GENERAL PROFILE FORM SUBMIT & INITIAL LOAD
     // ==========================================
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('settings-form');

@@ -11,11 +11,11 @@
 {% if displayUser.username %}
   <div class="container max-w-[1350px] mx-auto px-4 sm:px-6 py-8 sm:py-12 min-h-[60vh]">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-      <!-- Sol Kolon: Profil Bilgileri ve Navigasyon -->
+      <!-- Left column: profile info and navigation -->
       <div class="lg:col-span-4 space-y-6">
-        <!-- Profil Kartı -->
+        <!-- Profile card -->
         <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm relative overflow-hidden flex flex-col items-center text-center">
-          <!-- Dekoratif Arkaplan -->
+          <!-- Decorative background -->
           <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] -mr-8 -mt-8"></div>
 
           <div class="relative w-32 h-32 mb-6">
@@ -51,7 +51,7 @@
           </div>
         </div>
 
-        <!-- İstatistikler -->
+        <!-- Statistics -->
         <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
           <h3 class="text-lg font-bold text-gray-900 mb-4">İstatistikler</h3>
           <div class="space-y-3">
@@ -87,7 +87,7 @@
           </div>
         </div>
 
-        <!-- Navigasyon (Tab Butonları) -->
+        <!-- Navigation (tab buttons) -->
         <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
           <h3 class="text-lg font-bold text-gray-900 mb-4">Menü</h3>
           <div class="space-y-2 flex flex-col">
@@ -164,9 +164,9 @@
         </div>
       </div>
 
-      <!-- Sağ Kolon: Tab İçerikleri -->
+      <!-- Right column: tab contents -->
       <div class="lg:col-span-8">
-        <!-- DUVAR TABI -->
+        <!-- WALL TAB -->
         <div id="tab-wall" class="tab-content block bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm">
           <h2 class="text-2xl font-black text-gray-900 mb-6 flex items-center gap-3">
             <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -175,7 +175,7 @@
             Profil Duvarı
           </h2>
 
-          <!-- Mesaj Gönderme Kutusu -->
+          <!-- Message composer -->
           {% if customer %}
           <div class="flex gap-4 mb-8">
             <div class="w-12 h-12 rounded-xl bg-gray-100 shrink-0 overflow-hidden">
@@ -204,7 +204,7 @@
           </div>
           {% endif %}
 
-          <!-- Duvar Mesajları Listesi -->
+          <!-- Wall messages list -->
           <div id="wall-messages-list" class="space-y-4">
             <div class="py-12 text-center text-gray-400 font-bold bg-gray-50 rounded-2xl border border-gray-100 border-dashed">
               Mesajlar Yükleniyor...
@@ -212,7 +212,7 @@
           </div>
         </div>
 
-        <!-- ENVANTER TABI -->
+        <!-- INVENTORY TAB -->
         <div
           id="tab-inventory"
           class="tab-content hidden bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm"
@@ -265,21 +265,21 @@
 
       tabBtns.forEach((btn) => {
         btn.addEventListener('click', () => {
-          // Buton stillerini sıfırla
+          // Reset the button styles
           tabBtns.forEach((b) => {
             b.classList.remove('bg-primary/5', 'text-primary', 'border-primary/20');
             b.classList.add('text-gray-500', 'border-transparent');
           });
 
-          // Tıklanan butonu aktif et
+          // Activate the clicked button
           btn.classList.add('bg-primary/5', 'text-primary', 'border-primary/20');
           btn.classList.remove('text-gray-500', 'border-transparent');
 
-          // İçerikleri gizle
+          // Hide the contents
           tabContents.forEach((c) => c.classList.add('hidden'));
           tabContents.forEach((c) => c.classList.remove('block'));
 
-          // İlgili içeriği göster
+          // Show the matching content
           const target = document.getElementById(btn.getAttribute('data-target'));
           if (target) {
             target.classList.remove('hidden');
@@ -288,7 +288,7 @@
         });
       });
 
-      // Duvar Mesajları Logic
+      // Wall messages logic
       const wallContainer = document.getElementById('wall-messages-list');
       const wallInput = document.getElementById('wall-message-input');
       const btnSend = document.getElementById('btn-send-message');
@@ -434,7 +434,7 @@
         }
       }
 
-      // Mesaj Gönderme
+      // Send a message
       if (btnSend) {
         btnSend.addEventListener('click', async () => {
           const content = wallInput.value.trim();
@@ -457,7 +457,7 @@
         });
       }
 
-      // Dinamik Event Delegation (Yanıtla, Göster/Gizle)
+      // Dynamic event delegation (reply, show/hide)
       wallContainer.addEventListener('click', async (e) => {
         const target = e.target.closest('button');
         if (!target) return;
@@ -479,7 +479,7 @@
         }
 
         if (target.classList.contains('reply-btn')) {
-          // Önceki tüm reply formlarını kapat
+          // Close all previous reply forms
           document.querySelectorAll('[id^="reply-form-"]').forEach(f => f.classList.add('hidden'));
           
           const replyForm = document.getElementById(`reply-form-${msgId}`);
@@ -526,7 +526,7 @@
         window.crafter.on('wall:reply_added', () => fetchWallMessages());
       }
 
-      // Sayfa yüklendiğinde önbellekteki veriyi kullanarak çiz veya çek
+      // On page load, render from the cached data or fetch
       if (isOwnProfile && Array.isArray(window.SERVER_WALL_MESSAGES) && window.SERVER_WALL_MESSAGES.length >= 0) {
         renderWallMessages();
       } else {

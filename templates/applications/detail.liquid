@@ -13,7 +13,7 @@
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8">
-    <!-- Sol Panel: Form Detayları -->
+    <!-- Left panel: form details -->
     <aside class="space-y-6">
       <div class="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm">
         <h3 class="text-lg font-black text-gray-900 mb-6 flex items-center gap-2">
@@ -50,7 +50,7 @@
       </div>
     </aside>
 
-    <!-- Sağ Panel: Form İçeriği -->
+    <!-- Right panel: form content -->
     <main>
       <div class="bg-white border border-gray-100 rounded-3xl p-6 md:p-10 shadow-sm relative overflow-hidden">
         <div class="mb-8">
@@ -59,7 +59,7 @@
         </div>
 
         {% if formDetail.isActive %}
-          <!-- Başarı Mesajı -->
+          <!-- Success message -->
           <div
             id="apply-success"
             class="hidden absolute inset-0 bg-white z-10 flex flex-col items-center justify-center p-8 text-center animate-[fade-in-up_0.3s_ease-out]"
@@ -82,7 +82,7 @@
             </a>
           </div>
 
-          <!-- Hata Mesajı -->
+          <!-- Error message -->
           <div
             id="apply-error"
             class="hidden mb-8 p-6 rounded-2xl bg-red-50 border border-red-100 flex items-start gap-4"

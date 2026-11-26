@@ -303,7 +303,7 @@
     namespace: 'SupportReplyTicket',
     theme: myTheme,
     onError: (error) => {
-      console.error('Lexical Hatası:', error);
+      console.error('Lexical error:', error);
     },
   };
 
@@ -313,7 +313,7 @@
   if (editorElement) {
     editor.setRootElement(editorElement);
 
-    // Kayıt
+    // Submit
     registerRichText(editor);
 
     // Toolbars

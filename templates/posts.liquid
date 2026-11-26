@@ -20,7 +20,7 @@
   <div class="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
     <!-- Sidebar -->
     <aside class="space-y-6">
-      <!-- Filtreler Kartı -->
+      <!-- Filters card -->
       <div class="bg-white border border-gray-100 rounded-2xl shadow-sm p-5">
         <h3 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
           <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -29,7 +29,7 @@
           Filtreler
         </h3>
 
-        <!-- Arama -->
+        <!-- Search -->
         <div class="mb-5">
           <label class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">Ara</label>
           <div class="relative">
@@ -53,7 +53,7 @@
 
         <hr class="border-gray-100 mb-5">
 
-        <!-- Kategori / Tip -->
+        <!-- Category / type -->
         <div class="mb-5">
           <label class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-2 block"
             >Gönderi Tipi</label
@@ -106,7 +106,7 @@
 
         <hr class="border-gray-100 mb-5">
 
-        <!-- Sıralama -->
+        <!-- Sorting -->
         <div class="mb-5">
           <label class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">Sıralama</label>
           <div class="space-y-1.5 flex flex-col" id="sortFilters">
@@ -307,7 +307,7 @@
     let debounceTimer;
     let currentFetchController = null;
 
-    // Arama dinleyicisi
+    // Search listener
     searchInput.addEventListener('input', (e) => {
       currentSearch = e.target.value;
       clearTimeout(debounceTimer);
@@ -316,10 +316,10 @@
       }, 500);
     });
 
-    // Tip filtresi dinleyicisi
+    // Type filter listener
     typeButtons.forEach((btn) => {
       btn.addEventListener('click', (e) => {
-        // UI Güncelleme
+        // Update the UI
         typeButtons.forEach((b) => {
           b.classList.remove('bg-primary', 'text-white');
           b.classList.add('text-gray-600', 'hover:bg-gray-50');
@@ -332,10 +332,10 @@
       });
     });
 
-    // Sıralama dinleyicisi
+    // Sort listener
     sortButtons.forEach((btn) => {
       btn.addEventListener('click', (e) => {
-        // UI Güncelleme
+        // Update the UI
         sortButtons.forEach((b) => {
           b.classList.remove('bg-gray-100', 'text-gray-900');
           b.classList.add('text-gray-600', 'hover:bg-gray-50');
@@ -349,11 +349,11 @@
     });
 
     async function fetchPosts() {
-      // Yükleniyor durumu - Opaklığı düşür
+      // Loading state - lower the opacity
       postsGrid.style.opacity = '0.5';
       postsGrid.style.pointerEvents = 'none';
 
-      // URL Oluştur
+      // Build the URL
       const params = new URLSearchParams();
       if (currentType && currentType !== 'all') params.set('type', currentType);
       if (currentSort && currentSort !== 'createdAt') params.set('sortBy', currentSort);
@@ -362,27 +362,27 @@
       const queryString = params.toString();
       const newUrl = window.location.pathname + (queryString ? '?' + queryString : '');
 
-      // Önceki isteği iptal et
+      // Cancel the previous request
       if (currentFetchController) {
         currentFetchController.abort();
       }
       currentFetchController = new AbortController();
 
       try {
-        // URL'i tarayıcı geçmişine kaydet
+        // Save the URL to the browser history
         window.history.pushState({}, '', newUrl);
 
-        // Sunucudan (Liquid) render edilmiş HTML'i çek
+        // Fetch the HTML rendered by the server (Liquid)
         const response = await fetch(newUrl, {
           signal: currentFetchController.signal,
         });
         const html = await response.text();
 
-        // Gelen HTML'i ayrıştır
+        // Parse the received HTML
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
 
-        // Sadece Grid'i al ve değiştir
+        // Take only the grid and replace it
         const newGrid = doc.getElementById('postsGrid');
         const newNoResults = doc.getElementById('noResults');
 
@@ -390,18 +390,18 @@
           postsGrid.innerHTML = newGrid.innerHTML;
         }
 
-        // Yok durumu kontrolü
+        // Empty state check
         const currentNoResults = document.getElementById('noResults');
         if (newNoResults && currentNoResults) {
           currentNoResults.className = newNoResults.className;
         }
       } catch (error) {
         if (error.name === 'AbortError') {
-          return; // İptal edilen istekleri yoksay
+          return; // Ignore cancelled requests
         }
-        console.error('Gönderiler yüklenirken hata oluştu:', error);
+        console.error('Error while loading posts:', error);
       } finally {
-        // Yükleniyor durumunu kaldır (eğer yeni bir istek başlamadıysa)
+        // Remove the loading state (if no new request has started)
         if (!currentFetchController || currentFetchController.signal.aborted === false) {
           postsGrid.style.opacity = '1';
           postsGrid.style.pointerEvents = 'auto';
@@ -409,7 +409,7 @@
       }
     }
 
-    // Geri / İleri tuşlarında sayfayı güncelle
+    // Update the page on back / forward
     window.addEventListener('popstate', () => {
       window.location.reload();
     });
